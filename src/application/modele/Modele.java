@@ -10,6 +10,11 @@ package application.modele;
  */
 public class Modele {
 
+    /** les niveaux de la grille */
+    private final Object[][] NIVEAUX = {{"Facile", 9, 9, 10},
+                                        {"Intermédiaire", 16, 16, 40},
+                                        {"Difficile", 16, 30, 99}};
+    
     /** La grille de jeu */
     private Grille demineur;
 
@@ -108,5 +113,10 @@ public class Modele {
      */
     public String getChronometre() {
         return this.valeurChonometre;
+    }
+
+    /** @return les différents niveaux que le démineur peut avoir */
+    public Object[][] getNiveaux() {
+        return this.NIVEAUX;
     }
 }
