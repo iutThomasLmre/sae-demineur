@@ -9,9 +9,8 @@ package application.modele;
 import java.util.Scanner;
 
 /** 
- * TODO comment class responsibility (SRP)
+ * Tests unitaires de application.modele.Grille
  * @author thomas.lemaire
- *
  */
 public class TestGrille {
 
@@ -48,9 +47,13 @@ public class TestGrille {
         commencerJouer();
     }
     
-    /** 
-     * TODO comment method role
-     * 
+    /**
+     * <p> 
+     * Lancement du jeu avec :
+     * <ul><li>Lancement du chronomètre</li>
+     *     <li>Création et affichage de la grille</li></ul>
+     * Arrêt du jeu si l'utilisateur decouvre une mine
+     * </p>
      */
     public static void commencerJouer() {
         Chronometre chronometre = new Chronometre();
@@ -77,9 +80,9 @@ public class TestGrille {
                                          chronometre.getMilliseconds()));
     }
     
-    /** TODO comment method role
-     * @return int
-     * 
+    /**
+     * Choix d'une cellule avec ses coordonnées
+     * @return les coordonnées de la cellule choisie
      */
     public static int[] choisirCellule() {
         int[] coordonnees = new int[2];
@@ -94,8 +97,10 @@ public class TestGrille {
         return coordonnees;
     }
     
-    /** TODO comment method role
-     * @param cible
+    /** 
+     * Méthode permettant de découvrir une cellule
+     * Découvre les cellules voisines si aucunes mines les entoure
+     * @param cible la cellule que l'utilisateur souhaite découvrir
      */
     public static void decouvrirCellule(Cellule cible) {
 
@@ -115,8 +120,8 @@ public class TestGrille {
 
     }
 
-    /** TODO comment method role
-     * 
+    /**
+     * Affiche la grille de jeu dans la console
      */
     public static void afficherGrille() {
 

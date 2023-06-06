@@ -9,10 +9,13 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
+<!-- Création d'une BorderPane qui sera la zone principale dans laquelle nous placerons les éléments -->
 <BorderPane xmlns="http://javafx.com/javafx/11.0.1"
 	xmlns:fx="http://javafx.com/fxml/1" fx:id="root"
 	fx:controller="projet.demineur.Demineur">
+	<!-- Ensemble des éléments placés en haut de la BorderPane -->
 	<top>
+		<!-- Création du menu placé dans une GridPane -->
 		<GridPane fx:id="menu" maxHeight="200" maxWidth="500"
 			minHeight="60" minWidth="500" prefHeight="150" prefWidth="500"
 			xmlns:fx="http://javafx.com/fxml/1"
@@ -32,19 +35,23 @@
 					vgrow="SOMETIMES" />
 			</rowConstraints>
 			<children>
+				<!-- Menu de séléction de la difficulté -->
 				<ComboBox fx:id="choixNiveau" prefWidth="150.0"
 					GridPane.halignment="LEFT" GridPane.valignment="CENTER"
 					onAction="#selectionNiveau">
 				</ComboBox>
+				<!-- Bouton pour demander un indice -->
 				<Button fx:id="indice" mnemonicParsing="false"
 					prefHeight="25.0" prefWidth="324.0" text="Indice"
 					GridPane.columnIndex="2" GridPane.halignment="RIGHT"
 					GridPane.valignment="CENTER">
 				</Button>
+				<!-- Logo des mines dans le menu -->
 				<Circle radius="15.0" stroke="BLACK" strokeType="INSIDE"
 					GridPane.rowIndex="1" fx:id="logoMines"
 					GridPane.valignment="CENTER" layoutX="50">
 				</Circle>
+				<!-- Nombre de mines restantes -->
 				<Label fx:id="nombreMines" alignment="CENTER"
 					prefHeight="17.0" prefWidth="33.0" text="10" GridPane.rowIndex="1"
 					GridPane.halignment="CENTER" GridPane.valignment="CENTER">
@@ -52,6 +59,7 @@
 						<Font size="22.0" />
 					</font>
 				</Label>
+				<!-- Chronomètre de la partie en cours -->
 				<Label fx:id="temps" alignment="CENTER" prefHeight="38.0"
 					prefWidth="45.0" text="00:00" textAlignment="CENTER"
 					GridPane.columnIndex="2" GridPane.rowIndex="1"
@@ -60,12 +68,16 @@
 			</children>
 		</GridPane>
 	</top>
+	<!-- Ensemble des éléments placés au centre de la BorderPane -->
 	<center>
+		<!-- Grille de jeu -->
 		<GridPane fx:id="grille" gridLinesVisible="true"
 			xmlns:fx="http://javafx.com/fxml/1" BorderPane.alignment="CENTER">
 		</GridPane>
 	</center>
+	<!-- Ensemble des éléments placés en bas de la BorderPane -->
 	<bottom>
+		<!-- Tableau des 5 meilleurs temps -->
 		<GridPane fx:id="meilleursTemps" maxHeight="300"
 			maxWidth="500" minHeight="180" minWidth="300" prefHeight="300"
 			prefWidth="300.0" xmlns:fx="http://javafx.com/fxml/1"
@@ -93,12 +105,15 @@
 					vgrow="SOMETIMES" />
 			</rowConstraints>
 			<children>
+				<!-- Titre colonne des pseudos -->
 				<Label text="Pseudo" GridPane.halignment="CENTER"
 					GridPane.valignment="CENTER" />
+				<!-- Titre colonne des dates -->
 				<Label alignment="CENTER" contentDisplay="CENTER" text="Date"
 					textAlignment="CENTER" GridPane.columnIndex="1"
 					GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-				<Label text="Temps" GridPane.columnIndex="2"
+				<!-- Titre colonne des chronomètres / temps -->
+				<Label text="Temps" GridPane.columnIndex="21"
 					GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
 				<Label text="..." GridPane.halignment="CENTER"
 					GridPane.rowIndex="1" GridPane.valignment="CENTER" />

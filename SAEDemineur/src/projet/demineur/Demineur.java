@@ -4,63 +4,69 @@
  */
 package projet.demineur;
 
-import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.control.Label;
-import javafx.scene.control.Labeled;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBase;
 import javafx.scene.control.ComboBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
 /** TODO comment class responsibility (SRP)
  * @author constant.nguyen
- *
+ * @author thomas.izard
  */
 public class Demineur {
 
-    private static final int BUTTON_SIZE = 30;
+    /**Constant pour la taille des boutons de la grille*/
+    private static final int TAILLE_BOUTON = 30;
 
+    /**Menu de selection de la difficulté*/
     @FXML
     private ComboBox<String> choixNiveau;
 
+    /**Fenêtre principale pour disposer les objets*/
     @FXML
-    private BorderPane root;
+    private BorderPane racine;
 
+    /**Grille de jeu*/
     @FXML
     private GridPane grille;
 
+    /** Menu en haut de la page avec choix de la difficulté,
+     * indice, temps et nombre de mines
+     */
     @FXML
     private GridPane menu;
 
+    /**Nombre de mines restantes*/
     @FXML
     private Label nombreMines;
 
+    /**Logo des mines dans le menu*/
     @FXML
     private Circle logoMines;
 
+    /**Chronomètre de jeu*/
     @FXML
     private Label temps;
 
+    /**Bouton pour demander un indice*/
     @FXML
     private Button indice;
 
+    /**Grille / Tableau regroupant les 5 meilleurs temps*/
     @FXML
     private GridPane meilleursTemps;
 
+    /**Tableau des coordonnées des boutons*/
     private Object[][] boutonsCoordonnees;
 
     @FXML
@@ -69,31 +75,47 @@ public class Demineur {
         choixNiveau.setValue("Facile");
         grille.setAlignment(Pos.CENTER);
         selectionNiveau();
-        // Créer un StackPane pour centrer la grille
     }
-    private void createGrid(int longueur, int hauteur) {       
-        grille.setMaxSize(longueur * BUTTON_SIZE, hauteur * BUTTON_SIZE);
+    
+    /** 
+     * Méthode de création de grille de démineur avec une taille demandée
+     * <p>
+     * Elle fonction de cette manière :
+     * <ul><li>Supprime la grille précédente</li>
+     *     <li>Bloque la taille de la grille 
+     *     selon la longueur et la hauteur</li>
+     *     <li>Cree un tableau pour récupérer 
+     *     les coordonnées des boutons</li>
+     *     <li>Crée une grille avec des boutons cliquables</li>
+     *     <li>Met une bordure à la grille et aux boutons</li></ul>
+     * </p>
+     * @param longueur un entier correspondant à la longueur de la grille 
+     * @param hauteur un entier correspondant à la hauteur de la grille
+     */
+    private void creerGrille(int longueur, int hauteur) {       
+        grille.getChildren().clear();
+        grille.setMaxSize(longueur * TAILLE_BOUTON, hauteur * TAILLE_BOUTON);
 
         boutonsCoordonnees = new Object[longueur * hauteur][5];
         int i = 0;
 
-        for (int row = 0; row < hauteur; row++) {
-            for (int col = 0; col < longueur; col++) {
-                Button button = new Button();
-                button.setMinSize(BUTTON_SIZE, BUTTON_SIZE);
-                button.setMaxSize(BUTTON_SIZE, BUTTON_SIZE);
-                GridPane.setHgrow(button, Priority.ALWAYS);
-                GridPane.setVgrow(button, Priority.ALWAYS);
+        for (int ligne = 0; ligne < hauteur; ligne++) {
+            for (int colonne = 0; colonne < longueur; colonne++) {
+                Button bouton = new Button();
+                bouton.setMinSize(TAILLE_BOUTON, TAILLE_BOUTON);
+                bouton.setMaxSize(TAILLE_BOUTON, TAILLE_BOUTON);
+                GridPane.setHgrow(bouton, Priority.ALWAYS);
+                GridPane.setVgrow(bouton, Priority.ALWAYS);
 
-                boutonsCoordonnees[i][0] = button;
-                boutonsCoordonnees[i][1] = col;
-                boutonsCoordonnees[i][2] = row;
+                boutonsCoordonnees[i][0] = bouton;
+                boutonsCoordonnees[i][1] = colonne;
+                boutonsCoordonnees[i][2] = ligne;
                 boutonsCoordonnees[i][3] = 0;
                 boutonsCoordonnees[i][4] = i;
 
-                grille.add(button, col, row);
-                button.setBorder(Border.EMPTY);
-                button.setStyle("-fx-border-color: black; -fx-border-width: 0.5px;");
+                grille.add(bouton, colonne, ligne);
+                bouton.setBorder(Border.EMPTY);
+                bouton.setStyle("-fx-border-color: black; -fx-border-width: 0.5px;");
                 grille.setBorder(Border.EMPTY);
                 grille.setStyle("-fx-border-color: black; -fx-border-width: 0.5px;");
 
@@ -102,17 +124,11 @@ public class Demineur {
         }
     }
 
-    private void deleteGrid() {
-        // Supprimer tous les boutons du GridPane
-        grille.getChildren().clear();
-    }
-
-
     /**
-     * TODO comment method role
-     *
+     * Choix du niveau de difficulté par le joueur
+     * Elle se déclenche selon le choix de la difficulté
+     * dans le menu par le joueur
      */
-
     public void selectionNiveau() {
         switch(choixNiveau.getValue()) {
         case "Facile" :
@@ -127,34 +143,41 @@ public class Demineur {
         }
     }
 
+    /**
+     * Niveau de difficulté Facile
+     * Création d'une grille de taille 9x9
+     * Avec 10 mines au total
+     */
     @FXML
     private void niveauFacile() {
-        deleteGrid();
-        createGrid(9,9);
-        System.out.println("facile");
+        creerGrille(9,9);
         getBoutons();
         nombreMines.setText("10");
     }
 
+    /**
+     * Niveau de difficulté Intermédiaire
+     * Création d'une grille de taille 16x16
+     * Avec 40 mines au total
+     */
     @FXML
     private void niveauIntermediaire() {
-        deleteGrid();
-        createGrid(16,16);
-        System.out.println("medium");
+        creerGrille(16,16);
         getBoutons();
         nombreMines.setText("40");
     }
 
+    /**
+     * Niveau de difficulté Difficile
+     * Création d'une grille de taille 30x16
+     * Avec 99 mines au total
+     */
     @FXML
     private void niveauDifficile() {
-        deleteGrid();
-        createGrid(30,16);
-        System.out.println("hard");
+        creerGrille(30,16);
         getBoutons();
         nombreMines.setText("99");
     }
-
-
 
     List<Node> grilleBouton;
 

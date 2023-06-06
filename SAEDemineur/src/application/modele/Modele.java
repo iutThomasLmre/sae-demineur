@@ -20,34 +20,38 @@ public class Modele {
     private String valeurChonometre = "00:00:00";
 
     /** 
-     * TODO comment initial state
+     * Constructeur de la classe Modèle
      */
     public Modele() {
         // jdk19 Auto-generated constructor stub
     }
     
     /**
-     * TODO comment method role
+     * <p>
+     * Crée une grille de jeu avec :
+     * <ul><li>La longueur sous la forme de nombre</li>
+     *     <li>La hauteur sous la forme de nombre</li>
+     *     <li>Le nombre de mines sous la forme de nombre</li></ul>
+     * Renvoie ensuite cette grille
+     * </p>
      * @param longueur
      * @param hauteur
      * @param nombreBombe
-     * @return lui
+     * @return 0
      */
     public Modele setGrille(int longueur, int hauteur, int nombreBombe) {
         this.demineur = new Grille(longueur, hauteur, nombreBombe);
         return this;
     }
 
-    /** 
-     * TODO comment method role
-     * @return grille
-     */
+    /** @return grille de jeu de la partie en cours*/
     public Grille getGrille() {
         return this.demineur;
     }
 
     /**
-     * TODO comment method role
+     * Méthode de placement d'un drapeau
+     * avec incrément du nombre de drapeau
      * @return 0
      */
     public Modele placerDrapeau() {
@@ -55,16 +59,13 @@ public class Modele {
         return this;
     }
 
-    /**
-     * TODO comment method role
-     * @return 0
-     */
+    /** @return le nombre de drapeau restant à placer*/
     public int getNombreDrapeauRestant() {
         return this.demineur.getNombreDrapeau();
     }
 
     /**
-     * TODO comment method role
+     * Reinitialise le chronometre du jeu
      * @return o
      */
     public Modele reinitialiserChronometre() {
@@ -74,7 +75,7 @@ public class Modele {
     }
 
     /**
-     * TODO comment method role
+     * Lancement du chronomètre
      * @return 0 
      */
     public Modele demarrerChronometre() {
@@ -94,7 +95,7 @@ public class Modele {
     }
 
     /**
-     * TODO comment method role
+     * Arrêt du chronomètre
      * @return 0
      */
     public Modele arreterChronometre() {
@@ -102,10 +103,7 @@ public class Modele {
         return this;
     }
     
-    /**
-     * TODO comment method role
-     * @return 2
-     */
+    /** @return la valeur du chronomètre en cours*/
     public String getChronometre() {
         return this.valeurChonometre;
     }

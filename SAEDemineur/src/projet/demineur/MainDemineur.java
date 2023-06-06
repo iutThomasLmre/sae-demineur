@@ -18,7 +18,7 @@ import javafx.stage.Screen;
 
 /** MainLettre
  * @author constant.nguyen
- *
+ * @author thomas.izard
  */
 public class MainDemineur extends Application {
     @Override

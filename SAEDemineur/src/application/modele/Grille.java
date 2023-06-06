@@ -8,14 +8,19 @@ package application.modele;
 import application.modele.exceptions.ErreurGenerationGrille;
 
 /** 
- * TODO comment class responsibility (SRP)
+ * La grille est l'élément principal du démineur
+ * Elle gère sa taille, la proportion et le nombre de mines et de drapeaux
+ * Elle s'oocupe également de la création de cette grille
+ * et comprend le placement des mines dans la grille
+ * Elle détermine si toutes les mines ont été trouvées
+ * c'est à dire si tout les drapeaux ont été placés
  * @author thomas.lemaire
  */
 public class Grille {
     
-    /** Longueur maximale d'un démineur */
+    /** Longueur maximale d'une grille de démineur */
     private final static int LONGUEUR_MAX  = 128;
-    /** Hauteur maximale d'un démineur */
+    /** Hauteur maximale d'une grille de démineur */
     private final static int HAUTEUR_MAX   = 128;
     /** Coefficient maximum du nombre de bombe d'un démineur */
     private final static double COEF_BOMBE = 0.8;
@@ -60,10 +65,10 @@ public class Grille {
     }
     
     /**
-     * Méthode qui vérifie la validité du démineur créé
-     * @param longueur
-     * @param hauteur
-     * @param nombreBombe
+     * Prédicat de vérification de la validité du démineur crée
+     * @param longueur la longueur de la grille
+     * @param hauteur la hauteur de la grille
+     * @param nombreBombe le nombre de mines / bombes
      * @return true si le démineur est valide, false sinon
      */
     private boolean isValide(int longueur, int hauteur, int nombreBombe) {
@@ -129,7 +134,8 @@ public class Grille {
     }
 
     /**
-     * 
+     * Méthode qui permet de placer les mines / bombes
+     * selon les emplacements fournis par la méthode definirMine()
      */
     private void placerMine() {
         
@@ -144,8 +150,10 @@ public class Grille {
     }
 
     /**
-     * TODO comment method role
-     *
+     * Méthode définissant les valeurs de chaque cellule
+     * c'est à dire attribuant à chaque cellule un nombre
+     * correspondant au nombre de mines sur les case voisines
+     * Ce nombre est compris entre 1 et 9
      */
     private void definirValeurCellule() {
 
@@ -181,26 +189,21 @@ public class Grille {
 
     }
 
-    /** 
-     * TODO comment method role
-     * @return Case[][]
-     */
+    /** @return la matrice de la grille du démineur*/
     public Cellule[][] getMatriceGrille() {
         return matriceGrille;
     }
     
-    /**
-     * TODO comment method role
-     * @return 0
-     */
+    /** @return le nombre de mines présentes dans la grille*/
     public int getNombreMine() {
         return this.nombreMine;
     }
     
-    /**
-     * TODO comment method role
-     * @return null
-     */
+    /** 
+     * @throws IllegalArgumentException 
+     * si tout les drapeaux ont été placés
+     * @return la grille après avoir ajouter un drapeau
+     * */
     public Grille incrementNombreDrapeau() {
         if (this.nombreDrapeau >= this.nombreMine) {
             throw new IllegalArgumentException(
@@ -210,7 +213,7 @@ public class Grille {
         return this;
     }
     
-    /** @return le nombre de drapeau restant à placer par le joueur */
+    /** @return le nombre de drapeaux restants à placer par le joueur */
     public int getNombreDrapeau() {
         return this.nombreMine - this.nombreDrapeau;
     }

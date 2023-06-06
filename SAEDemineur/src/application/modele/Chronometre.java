@@ -9,9 +9,13 @@ package application.modele;
 import java.lang.Thread;
 
 /** 
- * TODO comment class responsibility (SRP)
+ * Le chronomètre est un élément important
+ * Il gère le temps de jeu de l'utilisateur
+ * Il détermine également si il est lancé ou arrété
+ * Il s'affiche dans le format heures:minutes:secondes
+ * Il est l'indicateur du score d'un joueur
+ * et permet de classer les joueurs selon celui-çi
  * @author thomas.lemaire
- *
  */
 public class Chronometre implements Runnable {
 
@@ -76,8 +80,7 @@ public class Chronometre implements Runnable {
     }
     
     /**
-     * TODO comment method role
-     * @return .
+     * @return le temps écoulé en millisecondes
      */
     public long getMilliseconds() {
     	long heureActuelle = System.currentTimeMillis();
@@ -87,8 +90,9 @@ public class Chronometre implements Runnable {
     }
     
     /**
-     * TODO comment method role
-     * @return .
+     * Récupère l'état actuel du chronomètre
+     * @return true si le chronomètre est en cours
+     *         false sinon
      */
     public boolean getEnCours() {
     	return this.enCours;
