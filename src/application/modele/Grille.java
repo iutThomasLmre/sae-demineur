@@ -28,9 +28,12 @@ public class Grille {
     
     /** Taille en hauteur de la matrice de jeu */
     private int hauteurGrille;
-    
+        
     /** Nombre de bombe étant dans la matrice de jeu */
-    private int nombreBombe;
+    private int nombreMine;
+    
+    /** Nombre de drapeau placer par le joueur */
+    private int nombreDrapeau = 0;
 
     /**
      * Constructeur de Grille
@@ -49,7 +52,7 @@ public class Grille {
         
         this.longueurGrille = longueur;
         this.hauteurGrille  = hauteur;
-        this.nombreBombe    = nombreBombe;
+        this.nombreMine    = nombreBombe;
 
         this.matriceGrille = new Cellule[hauteurGrille][longueurGrille];
 
@@ -81,8 +84,8 @@ public class Grille {
             }
         }
 
-        placerBombe();
-        definirValeur();
+        placerMine();
+        definirValeurCellule();
     }
 
     /**
@@ -91,16 +94,16 @@ public class Grille {
      * et qu'aucune ne soit placée, là ou déjà une autre est placée.
      * @return coordonneesBombes tableau de coordonnées des bombes [y, x]
      */
-    private int[][] definirBombe() {
+    private int[][] definirMine() {
 
         int resteBombe;
         int numeroBombe;
 
         boolean bombeDejaPlacee;
 
-        int[][] coordonneesBombes = new int[nombreBombe][2];
+        int[][] coordonneesBombes = new int[nombreMine][2];
 
-        resteBombe = nombreBombe;
+        resteBombe = nombreMine;
 
         while (resteBombe > 0) {
             int y = (int)(Math.random() * hauteurGrille);
@@ -115,7 +118,7 @@ public class Grille {
             }          
 
             if (!bombeDejaPlacee) {
-                numeroBombe = nombreBombe - resteBombe;
+                numeroBombe = nombreMine - resteBombe;
                 coordonneesBombes[numeroBombe][0] = y;
                 coordonneesBombes[numeroBombe][1] = x;
                 resteBombe--;
@@ -128,9 +131,9 @@ public class Grille {
     /**
      * 
      */
-    private void placerBombe() {
+    private void placerMine() {
         
-        int [][] coordonneesBombes = definirBombe();
+        int [][] coordonneesBombes = definirMine();
         int[] coordonneesBombeCourante = new int[2];
 
         for (int i = 0; i < coordonneesBombes.length; i++) {
@@ -140,7 +143,11 @@ public class Grille {
         }
     }
 
-    private void definirValeur() {
+    /**
+     * TODO comment method role
+     *
+     */
+    private void definirValeurCellule() {
 
         // Les coordonnées des potentiels voisins de la cellule
         int[][] voisinsCoordonnees = {{-1,-1}, {0,-1}, {1,-1},
@@ -180,5 +187,31 @@ public class Grille {
      */
     public Cellule[][] getMatriceGrille() {
         return matriceGrille;
+    }
+    
+    /**
+     * TODO comment method role
+     * @return 0
+     */
+    public int getNombreMine() {
+        return this.nombreMine;
+    }
+    
+    /**
+     * TODO comment method role
+     * @return null
+     */
+    public Grille incrementNombreDrapeau() {
+        if (this.nombreDrapeau >= this.nombreMine) {
+            throw new IllegalArgumentException(
+                    "Vous avez placez tous vos drapeaux");
+        }
+        this.nombreDrapeau++;
+        return this;
+    }
+    
+    /** @return le nombre de drapeau restant à placer par le joueur */
+    public int getNombreDrapeau() {
+        return this.nombreMine - this.nombreDrapeau;
     }
 }

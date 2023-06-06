@@ -102,7 +102,6 @@ public class Chronometre implements Runnable {
     public void run() {
         while (this.enCours) {
 //            System.out.println(toString(getMilliseconds()));
-
             try {
                 Thread.sleep(1000); // Attente d'une seconde
             } catch (InterruptedException e) {
