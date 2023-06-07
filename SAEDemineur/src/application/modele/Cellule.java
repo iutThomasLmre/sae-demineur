@@ -56,7 +56,7 @@ public class Cellule {
     private int marque;
 
     /** Constructeur de la cellule */
-    Cellule() {
+    public Cellule() {
         this.voisins = new ArrayList<Cellule>();
         this.valeur  = Integer.MAX_VALUE;
         this.marque  = 0;

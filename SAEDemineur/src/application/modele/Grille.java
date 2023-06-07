@@ -46,7 +46,7 @@ public class Grille {
      * @param hauteur
      * @param nombreBombe
      */
-    Grille(int longueur, int hauteur, int nombreBombe) {
+    public Grille(int longueur, int hauteur, int nombreBombe) {
         if (!isValide(longueur, hauteur, nombreBombe)) {
             throw new ErreurGenerationGrille
                 ("Impossible de generer un demineur avec les parametres suivants"

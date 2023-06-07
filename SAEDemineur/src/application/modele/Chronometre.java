@@ -71,7 +71,7 @@ public class Chronometre implements Runnable {
      * @param milliseconds Temps écoulé en millisecondes.
      * @return Temps écoulé formaté en heures:minutes:secondes.
      */
-    public String toString(long milliseconds) {
+    public static String toString(long milliseconds) {
         long secondes = milliseconds / 1000;
         long minutes = secondes / 60;
         long heures = minutes / 60;
