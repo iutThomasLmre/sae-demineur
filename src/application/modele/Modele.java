@@ -14,13 +14,13 @@ public class Modele {
     private final Object[][] NIVEAUX = {{"Facile", 9, 9, 10},
                                         {"Intermédiaire", 16, 16, 40},
                                         {"Difficile", 16, 30, 99}};
-    
+
     /** La grille de jeu */
     private Grille demineur;
 
     /** Le chronometre du jeu */
     private Chronometre chronometre = new Chronometre();
-    
+
     /** La valeur du chronometre */
     private String valeurChonometre = "00:00:00";
 
@@ -30,7 +30,7 @@ public class Modele {
     public Modele() {
         // jdk19 Auto-generated constructor stub
     }
-    
+
     /**
      * TODO comment method role
      * @param longueur
@@ -82,12 +82,13 @@ public class Modele {
      * TODO comment method role
      * @return 0 
      */
-    public Modele demarrerChronometre() {
+    public Chronometre demarrerChronometre() {
         this.chronometre.demarrer();
 
         while (this.chronometre.getEnCours()) {
             this.valeurChonometre 
                 = this.chronometre.toString(this.chronometre.getMilliseconds());
+            System.out.println(this.valeurChonometre );
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
@@ -95,7 +96,7 @@ public class Modele {
             }
         }
 
-        return this;
+        return chronometre;
     }
 
     /**
@@ -106,13 +107,13 @@ public class Modele {
         this.chronometre.arreter();
         return this;
     }
-    
+
     /**
      * TODO comment method role
      * @return 2
      */
-    public String getChronometre() {
-        return this.valeurChonometre;
+    public Chronometre getChronometre() {
+        return chronometre;
     }
 
     /** @return les différents niveaux que le démineur peut avoir */

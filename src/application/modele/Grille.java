@@ -83,9 +83,14 @@ public class Grille {
                 matriceGrille[y][x] = new Cellule();
             }
         }
-
-        placerMine();
-        definirValeurCellule();
+    }
+    
+    private void renitialiserCellule() {
+        for (int y = 0; y < hauteurGrille; y++) {
+            for (int x = 0; x < longueurGrille; x++) {
+                matriceGrille[y][x].setValeur(Integer.MAX_VALUE);;
+            }
+        }
     }
 
     /**
@@ -94,7 +99,7 @@ public class Grille {
      * et qu'aucune ne soit placée, là ou déjà une autre est placée.
      * @return coordonneesBombes tableau de coordonnées des bombes [y, x]
      */
-    private int[][] definirMine() {
+    public int[][] definirMine() {
 
         int resteBombe;
         int numeroBombe;
@@ -131,7 +136,9 @@ public class Grille {
     /**
      * 
      */
-    private void placerMine() {
+    public void placerMine() {
+        
+        renitialiserCellule();
         
         int [][] coordonneesBombes = definirMine();
         int[] coordonneesBombeCourante = new int[2];
@@ -147,7 +154,7 @@ public class Grille {
      * TODO comment method role
      *
      */
-    private void definirValeurCellule() {
+    public void definirValeurCellule() {
 
         // Les coordonnées des potentiels voisins de la cellule
         int[][] voisinsCoordonnees = {{-1,-1}, {0,-1}, {1,-1},
@@ -180,6 +187,55 @@ public class Grille {
         }
 
     }
+    
+    /**
+     * TODO comment method role
+     * @param cible
+     */
+    public void decouvrirCellule(Cellule cible) {
+
+        cible.setValeur(Math.abs(cible.getValeur()) * -1);
+
+        if (Math.abs(cible.getValeur()) == 1) {
+            for (int i = 0; i < cible.getVoisins().size(); i++) {
+                if (cible.getVoisins().get(i).getValeur() == 1) {
+                    decouvrirCellule(cible.getVoisins().get(i));
+                } else {
+                    cible.getVoisins().get(i).setValeur(
+                          Math.abs(cible.getVoisins().get(i).getValeur()) * -1);
+                }
+
+            }
+        }
+    }
+    
+    /**
+     * TODO comment method role
+     * @return 0
+     */
+    public boolean verifierFinPartie() {
+        boolean partieGagnee = true;
+        
+        for (int y = 0; y < hauteurGrille; y++) {
+            for (int x = 0; x < longueurGrille; x++) {
+                partieGagnee = matriceGrille[y][x].getValeur() <= 0 ? true && partieGagnee : false;
+            }
+        }
+        
+        return partieGagnee;
+    }
+    
+    /**
+     * TODO comment method role
+     *
+     */
+    public void decouvrirCelluleFinPartie() {
+        for (int y = 0; y < hauteurGrille; y++) {
+            for (int x = 0; x < longueurGrille; x++) {
+                matriceGrille[y][x].setValeur(matriceGrille[y][x].getValeur() * -1);;
+            }
+        }
+    }
 
     /** 
      * TODO comment method role
@@ -202,14 +258,23 @@ public class Grille {
      * @return null
      */
     public Grille incrementNombreDrapeau() {
-        if (this.nombreDrapeau >= this.nombreMine) {
-            throw new IllegalArgumentException(
-                    "Vous avez placez tous vos drapeaux");
-        }
         this.nombreDrapeau++;
         return this;
     }
     
+    /**
+     * TODO comment method role
+     * @return null
+     */
+    public Grille decrementNombreDrapeau() {
+        if (this.nombreDrapeau <= 0) {
+            throw new IllegalArgumentException(
+                    "Vous avez placez tous vos drapeaux");
+        }
+        this.nombreDrapeau--;
+        return this;
+    }
+        
     /** @return le nombre de drapeau restant à placer par le joueur */
     public int getNombreDrapeau() {
         return this.nombreMine - this.nombreDrapeau;

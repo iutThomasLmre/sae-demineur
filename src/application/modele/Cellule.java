@@ -91,9 +91,11 @@ public class Cellule {
      * </li><li>2 : La cellule est protégée et ne peut pas être découverte,
      *              l'utilisateur suspect la cellule comme étant une bombe.
      * </li></ul>
+     * @return 0
      */
-    public void marquer() {
+    public int marquer() {
         this.marque = ( this.marque + 1 ) % 3;
+        return this.marque;
     }
     
     /** @return la liste des voisins de la cellules */
@@ -114,5 +116,18 @@ public class Cellule {
     /** @return true si la cellule contient une bombe, false sinon */
     public boolean isBombe() {
         return this.valeur == 0;
+    }
+    
+    /**
+     * 
+     */
+    public String toString() {
+        if (this.valeur == 0) {
+            return "*";
+        } else if (this.valeur == -1){
+            return " ";
+        } else {
+            return ((Integer) ((this.valeur + 1) * (-1))).toString();
+        }
     }
 }
