@@ -193,7 +193,7 @@ public class Controleur {
                 if ((int) celluleCourante.getMarque() == 0) {
                     bouton.setStyle("-fx-background-color: #ffffff; -fx-border-color: black; -fx-border-width: 0.5px;");
                     modele.getGrille().decouvrirCellule(celluleCourante);
-                    setBoutonCouleur(bouton, celluleCourante.toString());
+                    setBoutonCouleur(bouton, celluleCourante.getValeur());
 
                     bouton.setText(celluleCourante.toString());
                     decouvrirCase();
@@ -213,12 +213,30 @@ public class Controleur {
      * TODO comment method role
      * @param valeur
      */
-    private void setBoutonCouleur(Button bouton, String valeur) {
-        final String STYLE_BOUTON = "-fx-background-color: #ffffff; -fx-border-color: black; -fx-border-width: 0.5px;";
+    private void setBoutonCouleur(Button bouton, Integer valeur) {
+        final String STYLE_BOUTON = "-fx-background-color: #ffffff;"
+                                  + "-fx-border-color: black;" 
+                                  + "-fx-border-width: 0.5px;"
+                                  + "-fx-font-weight: bold;";
         
-        if (valeur == "1") {
-            System.out.println("d");
-            bouton.setStyle(STYLE_BOUTON + "-fx-text-fill: red;");
+        if (valeur == Integer.valueOf(-2)) {
+            bouton.setStyle(STYLE_BOUTON + "-fx-text-fill: #98D15E;");
+        } else if (valeur == Integer.valueOf(-3)) {
+            bouton.setStyle(STYLE_BOUTON + "-fx-text-fill: #5ED1A8;");
+        } else if (valeur == Integer.valueOf(-4)) {
+            bouton.setStyle(STYLE_BOUTON + "-fx-text-fill: #5EA8D1;");
+        } else if (valeur == Integer.valueOf(-5)) {
+            bouton.setStyle(STYLE_BOUTON + "-fx-text-fill: #6E5ED1;");
+        } else if (valeur == Integer.valueOf(-6)) {
+            bouton.setStyle(STYLE_BOUTON + "-fx-text-fill: #BA5ED1;");
+        } else if (valeur == Integer.valueOf(-6)) {
+            bouton.setStyle(STYLE_BOUTON + "-fx-text-fill: #D15EB1;");
+        } else if (valeur == Integer.valueOf(-6)) {
+            bouton.setStyle(STYLE_BOUTON + "-fx-text-fill: #D15E5E;");
+        } else if (valeur == Integer.valueOf(-6)) {
+            bouton.setStyle(STYLE_BOUTON + "-fx-text-fill: #000000;");
+        } else {
+            bouton.setStyle(STYLE_BOUTON);
         }
     }
 
@@ -272,7 +290,7 @@ public class Controleur {
 
             if(celluleCourante.getValeur() < 0) {
                 bouttonCourant.setStyle("-fx-background-color: #ffffff; -fx-border-color: black; -fx-border-width: 0.5px;");
-                setBoutonCouleur(bouttonCourant, celluleCourante.toString());
+                setBoutonCouleur(bouttonCourant, celluleCourante.getValeur());
                 modele.getGrille().decouvrirCellule(celluleCourante);
                 bouttonCourant.setText(celluleCourante.toString());
             }
